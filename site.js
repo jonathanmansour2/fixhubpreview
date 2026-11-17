@@ -1,3 +1,13 @@
+
+// Preview: forms show a confirmation instead of opening email
+document.querySelectorAll('form[data-mailto]').forEach(f=>{
+  f.addEventListener('submit',e=>{
+    e.preventDefault();e.stopImmediatePropagation();
+    const ok=f.querySelector('.form-ok');
+    if(ok){ok.textContent='Preview only: on the live site this request goes straight to the shop at '+f.dataset.mailto+'.';ok.classList.add('show')}
+  },true);
+});
+
 // Mobile menu
 (function(){
   const b=document.getElementById('menuBtn'),n=document.getElementById('navLinks');
