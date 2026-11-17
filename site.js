@@ -1,13 +1,3 @@
-
-// Preview: forms show a confirmation instead of opening email
-document.querySelectorAll('form[data-mailto]').forEach(f=>{
-  f.addEventListener('submit',e=>{
-    e.preventDefault();e.stopImmediatePropagation();
-    const ok=f.querySelector('.form-ok');
-    if(ok){ok.textContent='Preview only: on the live site this request goes straight to the shop at '+f.dataset.mailto+'.';ok.classList.add('show')}
-  },true);
-});
-
 // Mobile menu
 (function(){
   const b=document.getElementById('menuBtn'),n=document.getElementById('navLinks');
@@ -58,8 +48,10 @@ document.querySelectorAll('form[data-mailto]').forEach(f=>{
 // Google reviews widget: show a link instead if it doesn't load
 (function(){
   const w=document.querySelector('.g-widget');if(!w)return;
+  // The widget fills its box with content when it loads; if the box is still empty, show the backup panel.
+  const fail=()=>{const c=w.firstElementChild;return !c||c.offsetHeight<60};
   setTimeout(()=>{
-    if(w.offsetHeight<60){const fb=document.querySelector('.g-fallback');if(fb)fb.classList.add('show');w.style.minHeight='0'}
+    if(fail()){const fb=document.querySelector('.g-fallback');if(fb)fb.classList.add('show');w.hidden=true}
   },6000);
 })();
 
